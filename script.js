@@ -5,10 +5,10 @@ window.onload = function() {
     if (cookie != "") {
         var cookieData = readCookie("data");
 
-        document.getElementById("endpoint").value = data.endpoint;
-        document.getElementById("port").value = data.port;
-        document.getElementById("wait").value = data.wait;
-        document.getElementById("auto").checked = data.auto;
+        document.getElementById("endpoint").value = cookieData.endpoint;
+        document.getElementById("port").value = cookieData.port;
+        document.getElementById("wait").value = cookieData.wait;
+        document.getElementById("auto").checked = cookieData.auto;
 
         if (document.getElementById("auto").checked) {
             setTimeout(redirect(), parseInt(wait.value));
