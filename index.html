@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Unlocalhost</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <h1>Unlocalhost</h1>
+        <h4>a simple website for localhost redirection</h4>
+        <hr>
+        <h3>Settings</h3>
+        <div>
+            <label for="endpoint">Endpoint</label>
+            <input type="text" id="endpoint">
+        </div>
+        <div>
+            <label for="port">Port number</label>
+            <input type="number" id="port" min="0" max="65535">
+        </div>
+        <div>
+            <label for="wait">Redirect wait time (in seconds)</label>
+            <input type="number" id="wait" min="0" max="60">
+        </div>
+        <div>
+            <label for="auto">Automatically redirect</label>
+            <input type="checkbox" id="auto">
+        </div>
+        <br>
+        <br>
+        <button onclick="saveChanges()" title="Save changes">Save changes</button>
+        <br>
+        <hr>
+        <br>
+        <button onclick="redirect()" title="Redirect">Redirect</button>
+    </body>
+</html>

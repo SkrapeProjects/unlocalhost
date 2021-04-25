@@ -1,0 +1,92 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    display: table;
+    margin: 0 auto;
+}
+
+h1, h4, h3 {
+    text-align: center;
+}
+
+h1 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+div, button, br {
+    clear: both;
+}
+
+div {
+    padding: 5px 0px 5px 0px
+}
+
+button {
+    display: table;
+    margin: 0 auto;
+    text-transform: uppercase;
+}
+
+div label {
+    float: left;
+    padding: 2px;
+    margin-right: 15px;
+}
+
+div input {
+    float: right;
+}
+
+div input[type="checkbox"] {
+    padding: 6px;
+    border-width: 2px;
+    border-color: lightgray;
+}
+
+div input[type="checkbox"]:hover {
+	filter: brightness(0.95);
+}
+
+div input[type="checkbox"]:checked {
+	background-color: orchid;
+}
+
+div input:focus {
+    outline: none;
+}
+
+div input, button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: 'Courier New', Courier, monospace;
+    border-style: solid;
+    border-radius: 4px;
+}
+
+div input {
+    background-color: ivory;
+}
+
+button[title="Save changes"] {
+    background-color: lightsalmon;
+    border-color: lightcoral;
+    color: black;
+}
+
+button[title="Save changes"]:hover {
+    background-color: lightcoral;
+}
+
+button[title="Redirect"] {
+    background-color: lightgreen;
+    border-color: limegreen;
+    color: black;
+}
+
+button[title="Redirect"]:hover {
+    background-color: limegreen;
+}
+
+button {
+    padding: 5px 15px 5px 15px;
+}
