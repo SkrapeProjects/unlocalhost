@@ -32,7 +32,6 @@ function saveChanges() {
         wait: document.getElementById("wait").value,
         auto: document.getElementById("auto").checked
     }
-    console.log(cookieObject);
     bakeCookie("data", cookieObject)
 }
 
