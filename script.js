@@ -4,7 +4,7 @@ var params = "";
 
 window.onload = function() {
     var cookie = document.cookie;
-    var params = window.location.search;
+    params = window.location.search;
     if (cookie != "") {
         var cookieData = readCookie("data");
 
