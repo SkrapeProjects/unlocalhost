@@ -1,7 +1,10 @@
 // This website was made in 34 minutes
 
+var params = "";
+
 window.onload = function() {
     var cookie = document.cookie;
+    var params = window.location.search;
     if (cookie != "") {
         var cookieData = readCookie("data");
 
@@ -21,7 +24,7 @@ function redirect() {
     if (endpointString.startsWith("/")) {
         endpointString = endpointString.substring(1);
     }
-    var finalUrl = "https://localhost:" + port.value + "/" + endpointString;
+    var finalUrl = "https://localhost:" + port.value + "/" + endpointString + params;
     window.location.replace(finalUrl);
 }
 
