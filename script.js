@@ -37,7 +37,7 @@ function saveChanges() {
 }
 
 function bakeCookie(name, value) {
-    var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/; HttpOnly; Secure; SameSite=None'].join('');
+    var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/; Secure; SameSite=None'].join('');
     document.cookie = cookie;
 }
 
