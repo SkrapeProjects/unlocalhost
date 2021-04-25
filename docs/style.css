@@ -1,11 +1,26 @@
+:root {
+    --bodyColor: white;
+    --textColor: black;
+    --footerColor: gray;
+    --sliderColorInner: white;
+    --sliderColorBackgroundActive: rgb(64, 64, 64);
+    --sliderColorBackgroundNotActive: lightgray;
+}
+
 body {
+    background-color: var(--bodyColor);
     font-family: 'Courier New', Courier, monospace;
     display: table;
     margin: 0 auto;
 }
 
+hr {
+    border-color: var(--textColor);
+}
+
 h1, h4, h3 {
     text-align: center;
+    color: var(--textColor);
 }
 
 h1 {
@@ -25,6 +40,7 @@ button {
     display: table;
     margin: 0 auto;
     text-transform: uppercase;
+    padding: 5px 15px 5px 15px;
 }
 
 div label {
@@ -70,7 +86,7 @@ div input {
 button[title="Save changes"] {
     background-color: lightsalmon;
     border-color: lightcoral;
-    color: black;
+    color: var(--textColor);
 }
 
 button[title="Save changes"]:hover {
@@ -80,13 +96,71 @@ button[title="Save changes"]:hover {
 button[title="Redirect"] {
     background-color: lightgreen;
     border-color: limegreen;
-    color: black;
+    color: var(--textColor);
 }
 
 button[title="Redirect"]:hover {
     background-color: limegreen;
 }
 
-button {
-    padding: 5px 15px 5px 15px;
+label {
+    color: var(--textColor);
+}
+
+p {
+    text-align: center;
+    font-size: 15px;
+    color: var(--footerColor);
+}
+
+a {
+    text-decoration: none;
+    color: orangered;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+}
+  
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--sliderColorBackgroundNotActive);
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--sliderColorInner);
+}
+  
+input:checked + .slider {
+    background-color: var(--sliderColorBackgroundActive);
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--sliderColorBackgroundActive);
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
 }

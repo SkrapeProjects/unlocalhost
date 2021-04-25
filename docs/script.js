@@ -12,11 +12,40 @@ window.onload = function() {
         document.getElementById("port").value = cookieData.port;
         document.getElementById("wait").value = cookieData.wait;
         document.getElementById("auto").checked = cookieData.auto;
+        document.getElementById("darkMode").checked = cookieData.darkMode;
+
+        if (document.getElementById("darkMode").checked) {
+            setDarkMode();
+        }
 
         if (document.getElementById("auto").checked) {
             setTimeout(redirect(), parseInt(wait.value));
         }
     }
+}
+
+function changeMode() {
+    if (document.getElementById("darkMode").checked) {
+        setDarkMode();
+    } else {
+        setLightMode();
+    }
+}
+
+function setLightMode() {
+    var rootStyle = document.querySelector(":root").style;
+    rootStyle.setProperty("--bodyColor", "white");
+    rootStyle.setProperty("--textColor", "black");
+    rootStyle.setProperty("--footerColor", "gray");
+    rootStyle.setProperty("--sliderColorInner", "white");
+}
+
+function setDarkMode() {
+    var rootStyle = document.querySelector(":root").style;
+    rootStyle.setProperty("--bodyColor", "rgb(48,48,48)");
+    rootStyle.setProperty("--textColor", "white");
+    rootStyle.setProperty("--footerColor", "rgb(164,164,164)");
+    rootStyle.setProperty("--sliderColorInner", "rgb(128,128,128)");
 }
 
 function redirect() {
@@ -33,7 +62,8 @@ function saveChanges() {
         endpoint: document.getElementById("endpoint").value,
         port: document.getElementById("port").value,
         wait: document.getElementById("wait").value,
-        auto: document.getElementById("auto").checked
+        auto: document.getElementById("auto").checked,
+        darkMode: document.getElementById("darkMode").checked
     }
     bakeCookie("data", cookieObject)
 }
