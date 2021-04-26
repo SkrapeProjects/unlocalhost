@@ -10,30 +10,30 @@ window.onload = function() {
     params = window.location.search;
     if (cookie != "") {
         var cookieData = readCookie("data");
-
+        
         // There is a special place in hell for people like me
-        if (cookieData.endpoint !== undefined) {
+        if (
+            cookieData.wait === undefined ||
+            cookieData.endpoint === undefined ||
+            cookieData.port === undefined ||
+            cookieData.darkMode === undefined ||
+            cookieData.auto === undefined
+        ) {
+            deleteCookie("data");
+        } else {
             document.getElementById("endpoint").value = cookieData.endpoint;
-        }
-        if (cookieData.port !== undefined) {
             document.getElementById("port").value = cookieData.port;
-        }
-        if (cookieData.wait !== undefined) {
             document.getElementById("wait").value = cookieData.wait;
-        }
-        if (cookieData.auto !== undefined) {
-        document.getElementById("auto").checked = cookieData.auto;
-        }
-        if (cookieData.darkMode !== undefined) {
+            document.getElementById("auto").checked = cookieData.auto;
             document.getElementById("darkMode").checked = cookieData.darkMode;
-        }
-
-        if (document.getElementById("darkMode").checked) {
-            setDarkMode();
-        }
-
-        if (document.getElementById("auto").checked) {
-            redirect();
+        
+            if (document.getElementById("darkMode").checked) {
+                setDarkMode();
+            }
+    
+            if (document.getElementById("auto").checked) {
+                redirect();
+            }
         }
     }
     updateValues();
@@ -45,7 +45,7 @@ function changeMode() {
     } else {
         setLightMode();
     }
-    darkModeValue = document.getElementById("darkMode").checked;
+    updateValues();
 }
 
 function clamp(val, min, max) {
@@ -71,6 +71,7 @@ function updateValues() {
     portValue = document.getElementById("port").value;
     endpointValue = document.getElementById("endpoint").value;
     waitValue = document.getElementById("wait").value;
+    darkModeValue = document.getElementById("darkMode").checked;
 }
 
 // This is horrible
@@ -109,13 +110,13 @@ async function redirect() {
                 return;
             }
         }
-        redirectBtn.textContent = "CANCEL 0";
+        redirectBtn.textContent = "REDIRECTING...";
         saveChanges();
         var endpointString = endpointValue;
         if (endpointString.startsWith("/")) {
             endpointString = endpointString.substring(1);
         }
-        var finalUrl = "https://localhost:" + document.getElementById("port").value + "/" + endpointString + params;
+        var finalUrl = "https://localhost:" + portValue + "/" + endpointString + params;
         window.location.replace(finalUrl);
     } else {
         redirectBtn.textContent = "REDIRECT";
@@ -139,13 +140,19 @@ function saveChanges() {
         auto: autoValue,
         darkMode: darkModeValue
     }
+    console.log(cookieObject);
     bakeCookie("data", cookieObject)
 }
 
 function bakeCookie(name, value) {
     var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/; Secure; SameSite=None'].join('');
-    console.log(cookie);
+    // Local debug only
+    //var cookie = [name, '=', JSON.stringify(value), '; path=/; Secure; SameSite=None'].join('');
     document.cookie = cookie;
+}
+
+function deleteCookie(name) {
+    bakeCookie(name, "");
 }
 
 function readCookie(name) {
