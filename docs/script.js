@@ -110,6 +110,7 @@ async function redirect() {
             }
         }
         redirectBtn.textContent = "CANCEL 0";
+        saveChanges();
         var endpointString = endpointValue;
         if (endpointString.startsWith("/")) {
             endpointString = endpointString.substring(1);
@@ -130,8 +131,6 @@ function setComponentsDisabled(value) {
     document.getElementById("darkMode").disabled = value;
 }
 
-window.onbeforeunload = saveChanges();
-
 function saveChanges() {
     var cookieObject = {
         endpoint: endpointValue,
@@ -145,6 +144,7 @@ function saveChanges() {
 
 function bakeCookie(name, value) {
     var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/; Secure; SameSite=None'].join('');
+    console.log(cookie);
     document.cookie = cookie;
 }
 
