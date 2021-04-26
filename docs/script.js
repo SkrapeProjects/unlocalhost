@@ -11,11 +11,22 @@ window.onload = function() {
     if (cookie != "") {
         var cookieData = readCookie("data");
 
-        document.getElementById("endpoint").value = cookieData.endpoint;
-        document.getElementById("port").value = cookieData.port;
-        document.getElementById("wait").value = cookieData.wait;
+        // There is a special place in hell for people like me
+        if (cookieData.endpoint !== undefined) {
+            document.getElementById("endpoint").value = cookieData.endpoint;
+        }
+        if (cookieData.port !== undefined) {
+            document.getElementById("port").value = cookieData.port;
+        }
+        if (cookieData.wait !== undefined) {
+            document.getElementById("wait").value = cookieData.wait;
+        }
+        if (cookieData.auto !== undefined) {
         document.getElementById("auto").checked = cookieData.auto;
-        document.getElementById("darkMode").checked = cookieData.darkMode;
+        }
+        if (cookieData.darkMode !== undefined) {
+            document.getElementById("darkMode").checked = cookieData.darkMode;
+        }
 
         if (document.getElementById("darkMode").checked) {
             setDarkMode();
@@ -62,6 +73,7 @@ function updateValues() {
     waitValue = document.getElementById("wait").value;
 }
 
+// This is horrible
 function setLightMode() {
     var rootStyle = document.querySelector(":root").style;
     rootStyle.setProperty("--bodyColor", "white");
@@ -70,6 +82,7 @@ function setLightMode() {
     rootStyle.setProperty("--sliderColorInner", "white");
 }
 
+// This one too
 function setDarkMode() {
     var rootStyle = document.querySelector(":root").style;
     rootStyle.setProperty("--bodyColor", "rgb(48,48,48)");
@@ -108,6 +121,7 @@ async function redirect() {
     }
 }
 
+// Bruh momento
 function setComponentsDisabled(value) {
     document.getElementById("endpoint").disabled = value;
     document.getElementById("port").disabled = value;
