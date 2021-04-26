@@ -1,6 +1,9 @@
 // This website was made in 34 minutes
 
 var params = "";
+var redirecting = false;
+
+var portValue, endpointValue, darkModeValue, waitValue, autoValue;
 
 window.onload = function() {
     var cookie = document.cookie;
@@ -19,9 +22,10 @@ window.onload = function() {
         }
 
         if (document.getElementById("auto").checked) {
-            setTimeout(redirect(), parseInt(wait.value));
+            redirect();
         }
     }
+    updateValues();
 }
 
 function changeMode() {
@@ -30,6 +34,32 @@ function changeMode() {
     } else {
         setLightMode();
     }
+    darkModeValue = document.getElementById("darkMode").checked;
+}
+
+function clamp(val, min, max) {
+    if (val > max) {
+        return max;
+    } else if (val < min) {
+        return min;
+    }
+    return val;
+}
+
+function updateValues() {
+    autoValue = document.getElementById("auto").checked;
+    
+    var minWait = 0;
+    if (autoValue) {
+        minWait = 5;
+    }
+    
+    document.getElementById("port").value = clamp(parseInt(document.getElementById("port").value), 0, 65535).toString();
+    document.getElementById("wait").value = clamp(parseInt(document.getElementById("wait").value), minWait, 60).toString();
+
+    portValue = document.getElementById("port").value;
+    endpointValue = document.getElementById("endpoint").value;
+    waitValue = document.getElementById("wait").value;
 }
 
 function setLightMode() {
@@ -48,22 +78,53 @@ function setDarkMode() {
     rootStyle.setProperty("--sliderColorInner", "rgb(128,128,128)");
 }
 
-function redirect() {
-    var endpointString = document.getElementById("endpoint").value;
-    if (endpointString.startsWith("/")) {
-        endpointString = endpointString.substring(1);
-    }
-    var finalUrl = "https://localhost:" + port.value + "/" + endpointString + params;
-    window.location.replace(finalUrl);
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+async function redirect() {
+    redirecting = !redirecting;
+    setComponentsDisabled(redirecting);
+    var redirectBtn = document.getElementById("redirectBtn");
+    if(redirecting) {
+        updateValues();
+        var i;
+        for (i = parseInt(waitValue); i > 0; i--) {
+            redirectBtn.textContent = "CANCEL " + i.toString();
+            await sleep(1000);
+            if (!redirecting) {
+                return;
+            }
+        }
+        redirectBtn.textContent = "CANCEL 0";
+        var endpointString = endpointValue;
+        if (endpointString.startsWith("/")) {
+            endpointString = endpointString.substring(1);
+        }
+        var finalUrl = "https://localhost:" + document.getElementById("port").value + "/" + endpointString + params;
+        window.location.replace(finalUrl);
+    } else {
+        redirectBtn.textContent = "REDIRECT";
+    }
+}
+
+function setComponentsDisabled(value) {
+    document.getElementById("endpoint").disabled = value;
+    document.getElementById("port").disabled = value;
+    document.getElementById("wait").disabled = value;
+    document.getElementById("auto").disabled = value;
+    document.getElementById("darkMode").disabled = value;
+}
+
+window.onbeforeunload = saveChanges();
 
 function saveChanges() {
     var cookieObject = {
-        endpoint: document.getElementById("endpoint").value,
-        port: document.getElementById("port").value,
-        wait: document.getElementById("wait").value,
-        auto: document.getElementById("auto").checked,
-        darkMode: document.getElementById("darkMode").checked
+        endpoint: endpointValue,
+        port: portValue,
+        wait: waitValue,
+        auto: autoValue,
+        darkMode: darkModeValue
     }
     bakeCookie("data", cookieObject)
 }

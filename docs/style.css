@@ -83,24 +83,15 @@ div input {
     background-color: ivory;
 }
 
-button[title="Save changes"] {
-    background-color: lightsalmon;
-    border-color: lightcoral;
-    color: var(--textColor);
-}
-
-button[title="Save changes"]:hover {
-    background-color: lightcoral;
-}
-
-button[title="Redirect"] {
-    background-color: lightgreen;
-    border-color: limegreen;
-    color: var(--textColor);
-}
-
-button[title="Redirect"]:hover {
+#redirectBtn {
     background-color: limegreen;
+    border-color: green;
+    color: var(--textColor);
+    min-width: 150px;
+}
+
+#redirectBtn:hover {
+    background-color: green;
 }
 
 label {

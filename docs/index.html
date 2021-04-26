@@ -19,27 +19,25 @@
         <h3>Settings</h3>
         <div>
             <label for="endpoint">Endpoint</label>
-            <input type="text" id="endpoint">
+            <input type="text" value="/" id="endpoint" onchange="updateValues()">
         </div>
         <div>
             <label for="port">Port number</label>
-            <input type="number" id="port" min="0" max="65535">
+            <input type="number" id="port" min="0" max="65535" value="6789" onchange="updateValues()">
         </div>
         <div>
             <label for="wait">Redirect wait time (in seconds)</label>
-            <input type="number" id="wait" min="0" max="60">
+            <input type="number" id="wait" min="0" max="60" onchange="updateValues()" value="0">
         </div>
         <div>
             <label for="auto">Automatically redirect</label>
-            <input type="checkbox" id="auto">
+            <input type="checkbox" id="auto" onclick="updateValues()">
         </div>
         <br>
         <br>
-        <button onclick="saveChanges()" title="Save changes">Save changes</button>
-        <br>
         <hr>
         <br>
-        <button onclick="redirect()" title="Redirect">Redirect</button>
+        <button id="redirectBtn" onclick="redirect()" title="Redirect">Redirect</button>
         <br>
         <br>
         <br>
